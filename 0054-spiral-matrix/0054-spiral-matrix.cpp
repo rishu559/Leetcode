@@ -1,46 +1,34 @@
 class Solution {
 public:
+    vector<int> ans;
+    void print(vector<vector<int>>& matrix,int i,int j,int m,int n){
+        if(i>=m || j>=n) return;
+        for(int c=j;c<n;c++){
+            ans.push_back(matrix[i][c]);
+        }
+        i++;
+        if(i>=m) return ;
+        for(int r=i;r<m;r++){
+            ans.push_back(matrix[r][n-1]);
+        }
+        n--;
+        if(j>=n) return ;
+        for(int c=n-1;c>=j;c--){
+            ans.push_back(matrix[m-1][c]);
+        }
+        m--;
+        if(i>=m) return ;
+        for(int r=m-1;r>=i;r--){
+            ans.push_back(matrix[r][j]);
+        }
+        j++;
+        print(matrix,i,j,m,n);
+
+    }
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
         int m = matrix.size();
         int n = matrix[0].size();
-        vector<int> res;
-        int sr = 0,sc=0;
-        while(sc<n && sr<m){
-            for(int i=sc;i<n;i++){
-                cout<<matrix[sr][i]<<" ";
-                res.push_back(matrix[sr][i]);
-            }
-            sr++;
-            if(sr==m) break;
-            cout<<"\n";
-            for(int i=sr;i<m;i++){
-                cout<<matrix[i][n-1]<<" ";
-                res.push_back(matrix[i][n-1]);
-            }
-            n--;
-            if(sc==n) break;
-            cout<<"\n";
-            for(int i=n-1;i>=sc;i--){
-                cout<<matrix[m-1][i]<<" ";
-                res.push_back(matrix[m-1][i]);
-            }
-            m--;
-            if(sr==m) break;
-            cout<<"\n";
-            for(int i=m-1;i>=sr;i--){
-                cout<<matrix[i][sc]<<" ";
-                res.push_back(matrix[i][sc]);
-            }
-            sc++;
-            
-            cout<<"\n";
-            // sr++;
-            // sc++;
-            // n--;
-            // m--;
-        }
-        
-        
-        return res;
-    }
+        print(matrix,0,0,m,n);
+        return ans;
+    }   
 };
