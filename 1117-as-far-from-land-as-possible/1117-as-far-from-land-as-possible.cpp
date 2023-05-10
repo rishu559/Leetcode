@@ -12,21 +12,17 @@ public:
             q.push({-1,-1});
             return;
         }
-        if(i<n-1 && visited[i+1][j]==false){
-            visited[i+1][j]=true;
-            q.push({i+1,j});
-        }
-        if(j<n-1 && visited[i][j+1]==false){
-            visited[i][j+1]=true;
-            q.push({i,j+1});
-        }
-        if(i>0 && visited[i-1][j]==false){
-            visited[i-1][j]=true;
-            q.push({i-1,j});
-        }
-        if(j>0 && visited[i][j-1]==false){
-            visited[i][j-1]=true;
-            q.push({i,j-1});
+        for(int a=-1;a<=1;a++){
+            for(int b = -1;b<=1;b++){
+                if(abs(a-b)==1){
+                    int x = i+a;
+                    int y = j+b;
+                    if(x>=0 && y>=0 && x<n && y<n && visited[x][y]==false){
+                        visited[x][y] = true;
+                        q.push({x,y});
+                    }
+                }
+            }
         }
     }
     int maxDistance(vector<vector<int>>& grid) {
